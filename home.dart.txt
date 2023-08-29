@@ -1,0 +1,77 @@
+// ignore_for_file: avoid_print
+
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+
+class Home extends StatefulWidget {
+  const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  int count = 0;
+
+  void getData() async {
+    var url = Uri.parse(
+        'https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=f0440aae2436bd0d48182d48e5618545');
+    var response = await get(url);
+    Map data = jsonDecode(response.body);
+    int dt = data['dt'];
+    //var temp = temp_data['temp'];
+    print(dt);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    print("this code api besed");
+    getData();
+  }
+
+  @override
+  void setState(VoidCallback fn) {
+    // TODO: implement setState
+    super.setState(fn);
+    print('set states');
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    print('dispose');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('home Activity'),
+        ),
+        body: const Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 200, bottom: 30),
+                child: Text(
+                  'JSON Data',
+                  style: TextStyle(
+                      fontSize: 60,
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              Text(
+                """Get The Date Using API
+         Weather App""",
+                style: TextStyle(fontSize: 30, color: Colors.black),
+              ),
+            ],
+          ),
+        ));
+  }
+}
